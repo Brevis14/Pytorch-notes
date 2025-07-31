@@ -32,6 +32,9 @@ These errors often occur due to version mismatches between Python, PyTorch, and 
 
 #### 📝 Notes:  
 May not work for everyone,but it’s a good baseline if you're facing similar headaches.  
+Install Jupyter Notebook in a venv:
+```bash
+conda install jupyter notebook
 
 #### 💡 Tip  
 If you’re using PyCharm, don’t forget to manually point your project interpreter to the Conda environment you just created (pytorch), via:  
