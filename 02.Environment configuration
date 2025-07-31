@@ -1,37 +1,39 @@
-# 🚀 Fixing Common PyTorch + CUDA Setup Issues (with Python 3.13 Heads-Up)
+# 🚀 Fixing Common PyTorch + CUDA Setup Issues (with Python 3.13 Heads-Up)  
 
-While trying to set up PyTorch with CUDA support, especially under a Conda virtual environment and using tools like PyCharm, you might hit errors like:
+While trying to set up PyTorch with CUDA support, especially under a Conda virtual environment and using tools like PyCharm, you might hit errors like:  
 
-### ❌ Common Errors
+### ❌ Common Errors  
 
 ```bash
-1. PyCharm cannot detect the Conda environment or the interpreter in it.
-2. Invalid Python interpreter.
-3. C:\Users\Users_name\.conda\envs\venv_name\python.exe: can't open file 'c:\\Users\\Users_name\\Desktop\\info': [Errno 2] No such file or directory
-4. >>> print(torch.cuda.is_available())
-   >>> False
-These errors often occur due to version mismatches between Python, PyTorch, and CUDA, especially if you're using bleeding-edge Python versions (like 3.13), which are not yet supported by PyTorch as of now.
+1. PyCharm cannot detect the Conda environment or the interpreter in it.  
+2. Invalid Python interpreter.  
+3. C:\Users\Users_name\.conda\envs\venv_name\python.exe: can't open file 'c:\\Users\\Users_name\\Desktop\\info': [Errno 2] No such file or directory  
+4. >>> print(torch.cuda.is_available())  
+   >>> False  
+These errors often occur due to version mismatches between Python, PyTorch, and CUDA, especially if you're using bleeding-edge Python versions (like 3.13), which are not yet supported by PyTorch as of now.  
 
-# ✅ Step-by-Step Fixes
-1.Clean uninstall current (possibly CPU-only) PyTorch packages in your environment:
+# ✅ Step-by-Step Fixes  
+1.Clean uninstall current (possibly CPU-only) PyTorch packages in your environment:  
 ```bash
- pip uninstall torch torchvision torchaudio
-2.Remove the problematic Conda environment:
+ pip uninstall torch torchvision torchaudio  
+2.Remove the problematic Conda environment:  
 ```bash
- conda env remove --name pytorch
-3.Downgrade to Python 3.11 (PyTorch-supported version) by creating a fresh Conda environment with a PyTorch-supported Python version (recommended: Python 3.11):
+ conda env remove --name pytorch  
+3.Downgrade to Python 3.11 (PyTorch-supported version) by creating a fresh Conda environment with a PyTorch-supported Python version (recommended: Python 3.11):  
 ```bash
- conda create -n pytorch python=3.11
-4.Install PyTorch with CUDA 12.1 support using the official PyTorch wheel source:
+ conda create -n pytorch python=3.11  
+4.Install PyTorch with CUDA 12.1 support using the official PyTorch wheel source:  
 ```bash
- pip install torch==2.5.1+cu121 torchvision==0.20.1+cu121 torchaudio==2.5.1+cu121 --index-url https://download.pytorch.org/whl/cu121
-5.Verify that CUDA is working:
-  >>> import torch
-  >>> print(torch.cuda.is_available()) # Should print: True
+ pip install torch==2.5.1+cu121 torchvision==0.20.1+cu121 torchaudio==2.5.1+cu121 --index-url https://download.pytorch.org/whl/cu121  
+5.Verify that CUDA is working:  
+```bash
+  >>> import torch  
+  >>> print(torch.cuda.is_available()) # Should print: True  
 
-#### 📝 Notes:
-May not work for everyone,but it’s a good baseline if you're facing similar headaches.
-#### 💡 Tip
-If you’re using PyCharm, don’t forget to manually point your project interpreter to the Conda environment you just created (pytorch), via:
+#### 📝 Notes:  
+May not work for everyone,but it’s a good baseline if you're facing similar headaches.  
+
+#### 💡 Tip  
+If you’re using PyCharm, don’t forget to manually point your project interpreter to the Conda environment you just created (pytorch), via:  
 ```bash
 Settings → Project → Python Interpreter → Add → Conda Environment → Existing
